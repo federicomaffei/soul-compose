@@ -11,6 +11,14 @@ server.connection({
     port: 3000
 });
 
+server.route({
+    method: 'GET',
+    path: '/',
+    handler: (req, reply) => {
+        reply('Funky soul singers')
+    }
+});
+
 server.start((err) => {
     if (err) {
         throw err;
