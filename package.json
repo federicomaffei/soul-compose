@@ -1,0 +1,30 @@
+{
+  "name": "soul-compose",
+  "version": "1.0.0",
+  "description": "Demo app for basic testing using docker-compose",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "./scripts/run-tests.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/federicomaffei/soul-compose.git"
+  },
+  "author": "Federico Maffei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/federicomaffei/soul-compose/issues"
+  },
+  "homepage": "https://github.com/federicomaffei/soul-compose#readme",
+  "dependencies": {
+    "config": "^1.21.0",
+    "expect.js": "^0.3.1",
+    "hapi": "^13.5.0",
+    "hapi-mongodb": "^6.0.0",
+    "js-yaml": "^3.6.1",
+    "mocha": "^2.5.3",
+    "mongodb": "^2.2.5",
+    "request": "^2.74.0"
+  }
+}
