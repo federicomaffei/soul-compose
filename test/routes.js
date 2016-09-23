@@ -9,7 +9,7 @@ describe('test routes', () => {
         let body, response;
         
         beforeEach((done) => {
-                request.get(`http://localhost:3000`, (error, res, b) => {
+                request.get(`http://localhost:3001`, (error, res, b) => {
                     response = res;
                     body = b;
                     done();
