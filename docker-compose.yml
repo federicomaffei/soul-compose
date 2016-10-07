@@ -5,3 +5,13 @@ services:
       context: .
     ports: 
       - "3001:3000"
+    environment:
+      - NODE_ENV=test      
+    depends_on:
+      - mongodb
+            
+  mongodb:
+    image: mongo:3.0.11
+    ports:
+      - "27018:27017"
+    command: --smallfiles

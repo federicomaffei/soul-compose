@@ -8,11 +8,13 @@ const Boom = require("boom");
 
 const server = new Hapi.Server();
 
+const mongoHost = process.env.NODE_ENV === 'test' ? 'mongodb' : 'localhost';
+
 const dbOpts = {
-    "url": "mongodb://localhost:27017/SoulCompose",
-    "settings": {
-        "db": {
-            "native_parser": false
+    url: `mongodb://${mongoHost}:27017/SoulCompose`,
+    settings: {
+        db: {
+            native_parser: false
         }
     }
 };
@@ -48,7 +50,7 @@ server.route({
         const db = req.server.plugins['hapi-mongodb'].db;
         db.collection('artists').findOne({ "id" : req.params.id }, function(err, result) {
             if (err) return reply(Boom.internal('Internal MongoDB error', err));
-            reply(result);
+            reply(result.name);
         });
     }
 });
