@@ -19,6 +19,14 @@ server.route({
     }
 });
 
+server.route({
+    method: 'POST',
+    path: '/artist',
+    handler: (req, reply) => {
+        reply(`Created a soul singer named ${req.payload.name}`).code(200);
+    }
+});
+
 server.start((err) => {
     if (err) {
         throw err;

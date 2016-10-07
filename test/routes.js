@@ -4,7 +4,7 @@ const expect = require('expect.js');
 const request = require('request');
 
 describe('test routes', () => {
-    describe('/', () => {
+    describe('get /', () => {
         
         let body, response;
         
@@ -19,6 +19,32 @@ describe('test routes', () => {
         it('returns a 200 and a message', () => {
             expect(response.statusCode).to.equal(200);
             expect(body).to.equal('Funky soul singers');
+        });
+    });
+    
+    describe('post /artist', () => {
+        
+        let body, response;
+        
+        beforeEach((done) => {
+            
+            const options = {
+                method: 'POST',
+                uri: 'http://localhost:3001/artist',
+                body: { name: 'Marvin Gaye', id: 'marvingaye' },
+                json: true
+            }
+            
+            request(options, (error, res, b) => {
+                    response = res;
+                    body = b;
+                    done();
+                });
+            });
+        
+        it('returns a 200 and a message', () => {
+            expect(response.statusCode).to.equal(200);
+            expect(body).to.equal('Created a soul singer named Marvin Gaye');
         });
     });
 });
