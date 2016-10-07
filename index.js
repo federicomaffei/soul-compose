@@ -4,8 +4,18 @@ process.on("SIGINT", function() { console.log("Caught SIGINT"); process.exit(0);
 process.on("SIGTERM", function() { console.log("Caught SIGTERM"); process.exit(0); });
 
 const Hapi = require('hapi');
+const Boom = require("boom");
 
 const server = new Hapi.Server();
+
+const dbOpts = {
+    "url": "mongodb://localhost:27017/SoulCompose",
+    "settings": {
+        "db": {
+            "native_parser": false
+        }
+    }
+};
 
 server.connection({
     port: 3000
@@ -23,13 +33,37 @@ server.route({
     method: 'POST',
     path: '/artist',
     handler: (req, reply) => {
-        reply(`Created a soul singer named ${req.payload.name}`).code(200);
+        const db = req.server.plugins['hapi-mongodb'].db;
+        db.collection('artists').insert(req.payload, function(err, result) {
+            if (err) return reply(Boom.internal('Internal MongoDB error', err));
+            reply(`Created a soul singer named ${req.payload.name}`).code(200);
+        });
     }
 });
 
-server.start((err) => {
-    if (err) {
-        throw err;
+server.route({
+    method: 'GET',
+    path: '/artist/{id}',
+    handler: (req, reply) => {
+        const db = req.server.plugins['hapi-mongodb'].db;
+        db.collection('artists').findOne({ "id" : req.params.id }, function(err, result) {
+            if (err) return reply(Boom.internal('Internal MongoDB error', err));
+            reply(result);
+        });
     }
-    console.log('Server running at:', server.info.uri);
 });
+
+server.register({
+    register: require('hapi-mongodb'),
+    options: dbOpts
+}, function (err) {
+    
+    server.start((err) => {
+        if (err) {
+            throw err;
+        }
+        console.log('Server running at:', server.info.uri);
+    });
+});
+
+

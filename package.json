@@ -18,10 +18,11 @@
   },
   "homepage": "https://github.com/federicomaffei/soul-compose#readme",
   "dependencies": {
+    "boom": "^4.1.0",
     "config": "^1.21.0",
     "expect.js": "^0.3.1",
     "hapi": "^13.5.0",
-    "hapi-mongodb": "^6.0.0",
+    "hapi-mongodb": "^6.2.0",
     "js-yaml": "^3.6.1",
     "mocha": "^2.5.3",
     "mongodb": "^2.2.5",
